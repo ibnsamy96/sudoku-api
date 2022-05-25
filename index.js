@@ -28,7 +28,8 @@ const flattenBoard = (board) => {
 			row.forEach((num) => acc.push(num));
 			return acc;
 		}, [])
-		.join("");
+		.join("")
+		.replace(/0/g, ".");
 };
 
 async function get9by9() {
@@ -58,7 +59,10 @@ async function get4by4() {
 		return [...acc, { board: row[0], solution: row[1] }];
 	}, []);
 	const randomIndex = Math.round(Math.random() * 100);
-	return boardsObjects[randomIndex];
+	return {
+		board: boardsObjects[randomIndex].board.replace(/0/g, "."),
+		solution: boardsObjects[randomIndex].solution.replace(/0/g, "."),
+	};
 }
 
 app.get("/", async (req, res, next) => {
